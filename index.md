@@ -1,7 +1,7 @@
 # Cluster Guidelines
-These pages are few guidelines on how to use the Cluster effectively, without any glitches. In case of any generic questions related to hpc, please contact [hpc-help@iastate.edu](email:hpc-help@iastate.edu).
+This page is for providing some guidelines on how to use SCSLab Cluster effectively, without any glitches.
 
-SCSLab is maintained Research IT dept who maintain all the clusters in ISU. It is equipped with 2 compute nodes and one head node. Both the nodes have 4 gpus each. It is running on Red Hat Enterprise Linux system (version 7.4), maintained regularly by the Research IT dept.
+SCSLab is maintained by the [High Performance Computing Group](hpc.iastate.edu) who maintain all the clusters at ISU. SCSLab Cluster is equipped with one head node and two compute nodes. Both the compute nodes have 4 GPUs each. It is running on Red Hat Enterprise Linux system (version 7.4).
 
 ## How to login to cluster
 
@@ -13,7 +13,7 @@ For more details on how to logon is provided [here](cluster_usage_basics). This 
 
 First time when you login, you would receive an email for registering the Two Factor authentication. You need to use google authenticator or authy for generating the code.
 
-You should ssh to the compute nodes (node2 and node3) for computations. The head node doesnt have much of RAM to run your computations.
+You should ssh to the compute nodes (node2 and node3) for all your computations. The head node doesnt have much of RAM to run your computations.
 
 eg. `ssh node2` or `ssh node3`
 
@@ -21,7 +21,7 @@ Note that, If you are accessing the cluster from outside ISU campus, then you mu
 
 ## Basic Unix Instructions
 
-Basic Instructions on how to access the cluster and navigate in the bash environment is provided [here](Notes_unix.pdf). VI editor is one of the fundamental editors for editing the codes in the cluster. There are some other editors like emacs, atom etc. which are not available in cluster. But Gedit is available in the cluster. Simple instruction on how to use vi editor are provided [here](Notes_unix_vim.pdf).
+Basic Instructions on how to access the cluster and navigate in the bash environment is provided [here](Notes_unix.pdf). VI editor is one of the fundamental editors for editing the codes in the cluster. There are some other editors like emacs, atom etc. which are not available in cluster. But gedit is available in the cluster. Simple instruction on how to use vi editor are provided [here](Notes_unix_vim.pdf).
 
 ## Hardware information
 
@@ -29,9 +29,11 @@ Besides the instructions above, It is recommended to keep track of the RAM usage
 
 `top` is used to see all the codes running currently in cpu. Most of the deep learning codes take a lot of memory in both CPU and GPU. Specifically when the dataset is huge. The memory in the CPU limits the total amount of data you can use for training.
 
-~nvidia-smi` is useful for looking at the utilization of the GPU Memory. GPU memory doesn’t limit the total data which we can load but limits the model size of the Network and the batch size you can use for training. When you initialize a deep learning code, it initializes the model and then loads the data and then sends model parameters to GPU and then in a small batch specified by batch size the training data is sent to the GPU for updating the model parameters. After the training is completed, the model parameters are copied back to the CPU.
+`nvidia-smi` is useful for looking at the utilization of the GPU Memory. GPU memory doesn’t limit the total data which we can load but limits the model size of the Network and the batch size you can use for training.
 
-You should be cautious about these while using the appropriate nodes and the Job. Example: If you have a very small dataset which will use very less CPU and GPU RAM, it is preferable to use the titanX instead of P40. Since there is no formal scheduler (though we are working with HPC team to have a better allocation by a slurm job scheduler), it is upto each person’s wise choices on usage the resources and talk to others while to schedule things.
+When you initialize a deep learning code, it initializes the model and then loads the data and then sends model parameters to GPU and then in a small batch specified by batch size the training data is sent to the GPU for updating the model parameters. After the training is completed, the model parameters are copied back to the CPU.
+
+You should be cautious about these “parameters” affecting your computations and others’ while choosing the appropriate nodes for a Job. Example: If you have a very small dataset which will use very less CPU and GPU RAM, it is preferable to use the titanX instead of P40. Since there is no formal scheduler (though we are working with HPC team to have a better allocation by a slurm job scheduler), it is upto each person’s wise choices on usage the resources and talk to others while to schedule things.
 
 ## Softwares Available
 Every user has their own requirements on what softwares one wants to use and it wouldn’t be same for everyone. So we use something called as modules to standardize the environment for all the users and make all the softwares modular so that one can load the modules needed.
@@ -64,16 +66,16 @@ To identify what all processes are running because of your user, use `ps aux | g
 
 Use the PID from the search to kill the process.
 
-### X Forwarding 
+### X-Forwarding 
 
-Some softwares would need X forwarding for using interactive window. For eg. Matlab can run in command prompt or you could get an interactive window to work on Matlab. Rviz or Gazebo would need X forwarding as well.
+Some softwares would need X forwarding for using interactive window. For eg. Matlab can run in command prompt or you could get an interactive window to work on Matlab. Rviz or Gazebo would need X-forwarding as well.
 
 So, while you login you need to use SSH -X instead of SSH for X-forwarding. Sometimes, we would even need port forwarding, which can be done by SSH -L. 
 
 
 
 
-## Platform Specific examples
+### Specific Platform examples
 For almost all the packages you would use gpus irrespective of what platform you are using. Thus loading cuda module is necessary for all the below tools. This might be something you might want to add in your bashrc as a best practice.
 The Cluster has few deep learning platforms installed for all the users:
 1. Keras
@@ -100,7 +102,7 @@ You would need to launch a tensor board session and then use then use Firefox in
 
 Most of the tools are installed in some versions of python and some of the tools are not installed yet in the cluster. Please see next section about how to install softwares which are specific to you alone.
 
-##Installation of new packages
+## Installation of new packages
 
 There are a lot of packages in the world wide web. Installing everything for every user and every version possible is an unintelligent thing to do. Further some of these packages intersect with others and causes problems for other users. For this reason, sudo access(admin privileges) is not provided to every user. Sudo access makes your installation affect other user’s environment.
 
@@ -150,15 +152,22 @@ If one is working in docker containers or virtual environments, one wouldn’t n
 
 
 ## List of interesting and useful repositories
-This is list I would update based on things I would find and what others share with me.
-keras2cpp
-kerasvis
+This section shall be a curated list of useful repositories and tools which I would update as and when I encounter anything new or based on what you share with me.
+
+[keras2cpp](https://github.com/pplonski/keras2cpp)
+
+[kerasvis](https://github.com/raghakot/keras-vis)
+
 
 ## Contact
 If this is platform specific questions, post it in Slack team so that everyone can have a look at it and anyone can answer it.
-https://join.slack.com/t/scslabteam/shared_invite/MjI4MDQwOTk1MDkwLTE1MDI5ODQ0NjYtNGM4OTU1ZTcyNQ
+[slack account invite](https://join.slack.com/t/scslabteam/shared_invite/MjI4MDQwOTk1MDkwLTE1MDI5ODQ0NjYtNGM4OTU1ZTcyNQ)
 
-If this is about running adding new platforms and installing new packages in cluster, contact hpc-help@iastate.edu
+If this is about running adding new platforms and installing new packages in cluster other than those mentioned above then, I would suggest do some homework and then contact hpc-help@iastate.edu only if there is something needing sudo access.
+
+Final point, HPC community @ ISU is there for our complete support. Their only goal is that they will remove all the hardware and software issues from our head and let us focus on our research work. They are ready to help us to the extent of running our codes to verify if the installation is correct or not. Let’s respect them and take their help wisely so that we don’t waste our time and we don’t waste their time unnecessarily.
+
+In case of any generic questions or any specific things to be added to this webpage, please contact [me](email:baditya@iastate.edu).
 
 
 
