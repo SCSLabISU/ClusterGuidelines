@@ -9,7 +9,7 @@ To access the compute nodes of the cluster, you should first login to the head n
 
 `SSH netID@scslab01.me.iastate.edu`
 
-For more details on how to logon is provided [here](cluster_usage_basics). This is also found in [http://www.hpc.iastate.edu/guides](http://www.hpc.iastate.edu/guides)
+For more details on how to logon is provided [here](cluster_usage_basics.pdf). This is also found in [http://www.hpc.iastate.edu/guides](http://www.hpc.iastate.edu/guides)
 
 First time when you login, you would receive an email for registering the Two Factor authentication. You need to use google authenticator or authy for generating the code.
 
